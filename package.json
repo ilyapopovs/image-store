@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/drizzle-adapter": "^1.2.0",
     "@libsql/client": "^0.6.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@stripe/stripe-js": "^3.5.0",

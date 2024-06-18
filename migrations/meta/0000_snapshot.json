@@ -1,51 +1,85 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "1569114d-a65e-4d4c-bb65-4cc4b00f5bb7",
+  "id": "aeb13906-076d-4482-8bd1-3c315a206bb5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "posts": {
-      "name": "posts",
+    "account": {
+      "name": "account",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "title": {
-          "name": "title",
+        "userId": {
+          "name": "userId",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "content": {
-          "name": "content",
+        "type": {
+          "name": "type",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "user_id": {
-          "name": "user_id",
-          "type": "integer",
+        "provider": {
+          "name": "provider",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "created_at": {
-          "name": "created_at",
+        "providerAccountId": {
+          "name": "providerAccountId",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": "(CURRENT_TIMESTAMP)"
+          "autoincrement": false
         },
-        "updated_at": {
-          "name": "updated_at",
+        "refresh_token": {
+          "name": "refresh_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "access_token": {
+          "name": "access_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "expires_at": {
+          "name": "expires_at",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "token_type": {
+          "name": "token_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "scope": {
+          "name": "scope",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "id_token": {
+          "name": "id_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "session_state": {
+          "name": "session_state",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -53,12 +87,159 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "posts_user_id_users_id_fk": {
-          "name": "posts_user_id_users_id_fk",
-          "tableFrom": "posts",
-          "tableTo": "users",
+        "account_userId_user_id_fk": {
+          "name": "account_userId_user_id_fk",
+          "tableFrom": "account",
+          "tableTo": "user",
           "columnsFrom": [
-            "user_id"
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "account_provider_providerAccountId_pk": {
+          "columns": [
+            "provider",
+            "providerAccountId"
+          ],
+          "name": "account_provider_providerAccountId_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "authenticator": {
+      "name": "authenticator",
+      "columns": {
+        "credentialID": {
+          "name": "credentialID",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "providerAccountId": {
+          "name": "providerAccountId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "credentialPublicKey": {
+          "name": "credentialPublicKey",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "counter": {
+          "name": "counter",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "credentialDeviceType": {
+          "name": "credentialDeviceType",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "credentialBackedUp": {
+          "name": "credentialBackedUp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "transports": {
+          "name": "transports",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "authenticator_credentialID_unique": {
+          "name": "authenticator_credentialID_unique",
+          "columns": [
+            "credentialID"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "authenticator_userId_user_id_fk": {
+          "name": "authenticator_userId_user_id_fk",
+          "tableFrom": "authenticator",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "authenticator_userId_credentialID_pk": {
+          "columns": [
+            "credentialID",
+            "userId"
+          ],
+          "name": "authenticator_userId_credentialID_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "session": {
+      "name": "session",
+      "columns": {
+        "sessionToken": {
+          "name": "sessionToken",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "expires": {
+          "name": "expires",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "session_userId_user_id_fk": {
+          "name": "session_userId_user_id_fk",
+          "tableFrom": "session",
+          "tableTo": "user",
+          "columnsFrom": [
+            "userId"
           ],
           "columnsTo": [
             "id"
@@ -70,12 +251,12 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "users": {
-      "name": "users",
+    "user": {
+      "name": "user",
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": true,
           "notNull": true,
           "autoincrement": false
@@ -84,14 +265,7 @@
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "age": {
-          "name": "age",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "email": {
@@ -100,19 +274,63 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "emailVerified": {
+          "name": "emailVerified",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         }
       },
-      "indexes": {
-        "users_email_unique": {
-          "name": "users_email_unique",
-          "columns": [
-            "email"
-          ],
-          "isUnique": true
-        }
-      },
+      "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "verificationToken": {
+      "name": "verificationToken",
+      "columns": {
+        "identifier": {
+          "name": "identifier",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "expires": {
+          "name": "expires",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "verificationToken_identifier_token_pk": {
+          "columns": [
+            "identifier",
+            "token"
+          ],
+          "name": "verificationToken_identifier_token_pk"
+        }
+      },
       "uniqueConstraints": {}
     }
   },
