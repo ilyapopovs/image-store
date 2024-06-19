@@ -11,6 +11,8 @@ import NextAuth from 'next-auth';
 import GitHub from 'next-auth/providers/github';
 import Google from 'next-auth/providers/google';
 
+export const BASE_PATH = '/api/auth';
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: DrizzleAdapter(db, {
     usersTable: users,
@@ -20,4 +22,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     authenticatorsTable: authenticators,
   }),
   providers: [GitHub, Google],
+  basePath: BASE_PATH,
 });

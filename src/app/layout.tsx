@@ -2,6 +2,8 @@ import { cn } from '@/common/_/ui/utils';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../globals.css';
+import { Header } from './_/header';
+import { SessionProvider } from './_/session-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,7 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className, 'dark bg-background')}>
-        {children}
+        <SessionProvider>
+          <Header />
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );
