@@ -1,3 +1,4 @@
+import { Toaster } from '@/common/_/ui/toaster';
 import { cn } from '@/common/_/ui/utils';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -22,7 +23,8 @@ export default function RootLayout({
       <body className={cn(inter.className, 'dark bg-background')}>
         <SessionProvider>
           <Header />
-          {children}
+          <main>{children}</main>
+          <Toaster />
         </SessionProvider>
       </body>
     </html>
