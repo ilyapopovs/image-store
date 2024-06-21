@@ -8,6 +8,13 @@
       "when": 1718654646946,
       "tag": "0000_slim_exiles",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1718975177336,
+      "tag": "0001_even_famine",
+      "breakpoints": true
     }
   ]
 }

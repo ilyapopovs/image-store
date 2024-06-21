@@ -5,7 +5,7 @@ import {
   sessions,
   users,
   verificationTokens,
-} from '@/database/schema';
+} from '@/database/schema/auth.schema';
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import NextAuth from 'next-auth';
 import GitHub from 'next-auth/providers/github';
