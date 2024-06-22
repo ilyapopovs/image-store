@@ -15,6 +15,13 @@
       "when": 1718975177336,
       "tag": "0001_even_famine",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1719070900159,
+      "tag": "0002_past_gargoyle",
+      "breakpoints": true
     }
   ]
 }

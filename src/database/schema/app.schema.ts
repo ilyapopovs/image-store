@@ -14,6 +14,7 @@ export const stripe_customers = sqliteTable('stripe_customers', {
   plan_active: integer('plan_active', { mode: 'boolean' })
     .notNull()
     .default(false),
+  plan_expires: integer('plan_expires', { mode: 'timestamp' }),
   subscription_id: text('subscription_id').notNull(),
 });
 
