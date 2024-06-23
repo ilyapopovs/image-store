@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/common/_/ui/card';
 import { db } from '@/database';
 import { stripe_customers } from '@/database/schema/app.schema';
 import { eq } from 'drizzle-orm';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default async function Profile() {
@@ -32,9 +33,22 @@ export default async function Profile() {
             <CardTitle>Stripe data</CardTitle>
           </CardHeader>
           <CardContent>
-            {stripeCustomer
-              ? JSON.stringify(stripeCustomer, undefined, 2)
-              : 'empty'}
+            {stripeCustomer ? (
+              <div className="whitespace-pre-wrap">
+                {JSON.stringify(stripeCustomer, undefined, 2)}
+              </div>
+            ) : (
+              <div>
+                <div>No Stripe data.</div>
+                <div>
+                  Create by{' '}
+                  <Link href="/" className="underline underline-offset-4">
+                    making an order
+                  </Link>
+                  !
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
