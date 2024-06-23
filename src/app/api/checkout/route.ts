@@ -1,15 +1,31 @@
 import { stripe } from '@/common/stripe';
+import { db } from '@/database';
+import { stripe_customers } from '@/database/schema/app.schema';
+import { eq } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
     const { priceId, email, userId } = await request.json();
+    const result = await db
+      .select()
+      .from(stripe_customers)
+      .where(eq(stripe_customers.user_id, userId));
+    const stripeCustomer = result.length > 0 ? result[0] : undefined;
+
+    let customerReference: any = {};
+
+    if (stripeCustomer) {
+      customerReference['customer'] = stripeCustomer.stripe_customer_id;
+    } else {
+      customerReference['customer_email'] = email;
+    }
 
     const session = await stripe.checkout.sessions.create({
       metadata: {
         user_id: userId,
       },
-      customer_email: email,
+      ...customerReference, // stripe doesn't allow specifying both `customer` and `customer_email`
       payment_method_types: ['card'],
       line_items: [
         {
