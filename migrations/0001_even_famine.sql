@@ -12,7 +12,7 @@ CREATE TABLE `stripe_customers` (
 	`stripe_customer_id` text NOT NULL,
 	`total_downloads` integer DEFAULT 0 NOT NULL,
 	`plan_active` integer DEFAULT false NOT NULL,
-	`subscription_id` text NOT NULL,
+	`subscription_id` text,
 	FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint

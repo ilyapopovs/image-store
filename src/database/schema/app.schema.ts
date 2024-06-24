@@ -15,7 +15,7 @@ export const stripe_customers = sqliteTable('stripe_customers', {
     .notNull()
     .default(false),
   plan_expires: integer('plan_expires', { mode: 'timestamp' }),
-  subscription_id: text('subscription_id').notNull(),
+  subscription_id: text('subscription_id'),
 });
 export type StripeCustomer = typeof stripe_customers.$inferSelect;
 export type StripeCustomerInsert = typeof stripe_customers.$inferInsert;
