@@ -1,4 +1,5 @@
 import { stripe } from '@/common/stripe';
+import { getStripeCustomer } from '@/common/stripeCustomerUtils.server';
 import { db } from '@/database';
 import { stripe_customers } from '@/database/schema/app.schema';
 import { eq } from 'drizzle-orm';
@@ -7,11 +8,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {
     const { priceId, email, userId } = await request.json();
-    const result = await db
-      .select()
-      .from(stripe_customers)
-      .where(eq(stripe_customers.user_id, userId));
-    const stripeCustomer = result.length > 0 ? result[0] : undefined;
+    const stripeCustomer = await getStripeCustomer(userId);
 
     let customerReference: any = {};
 

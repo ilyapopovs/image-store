@@ -1,6 +1,9 @@
 import { stripe } from '@/common/stripe';
 import { db } from '@/database';
-import { stripe_customers } from '@/database/schema/app.schema';
+import {
+  stripe_customers,
+  type StripeCustomerInsert,
+} from '@/database/schema/app.schema';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
@@ -25,8 +28,7 @@ export async function POST(request: NextRequest) {
       const session: Stripe.Checkout.Session = event.data.object;
       const userId = session.metadata?.user_id ?? 'kek';
 
-      type StripeCustomer = typeof stripe_customers.$inferInsert;
-      const newStripeCustomer: StripeCustomer = {
+      const newStripeCustomer: StripeCustomerInsert = {
         user_id: userId,
         stripe_customer_id: session.customer as string,
         subscription_id: session.subscription as string,

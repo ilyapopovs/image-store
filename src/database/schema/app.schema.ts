@@ -17,6 +17,8 @@ export const stripe_customers = sqliteTable('stripe_customers', {
   plan_expires: integer('plan_expires', { mode: 'timestamp' }),
   subscription_id: text('subscription_id').notNull(),
 });
+export type StripeCustomer = typeof stripe_customers.$inferSelect;
+export type StripeCustomerInsert = typeof stripe_customers.$inferInsert;
 
 export const downloads = sqliteTable('downloads', {
   id: text('id')
@@ -28,3 +30,5 @@ export const downloads = sqliteTable('downloads', {
   ts: integer('ts', { mode: 'timestamp' }).default(sql`(current_timestamp)`), // UTC
   image: text('image'),
 });
+export type Download = typeof downloads.$inferSelect;
+export type DownloadInsert = typeof downloads.$inferInsert;
