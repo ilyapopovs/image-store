@@ -4,6 +4,7 @@ import {
   stripe_customers,
   type StripeCustomerInsert,
 } from '@/database/schema/app.schema';
+import { eq } from 'drizzle-orm';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
@@ -26,7 +27,7 @@ export async function POST(request: NextRequest) {
 
     if (event.type === 'checkout.session.completed') {
       const session: Stripe.Checkout.Session = event.data.object;
-      const userId = session.metadata?.user_id ?? 'kek';
+      const userId = session.metadata?.user_id!;
 
       const newStripeCustomer: StripeCustomerInsert = {
         user_id: userId,
@@ -50,11 +51,32 @@ export async function POST(request: NextRequest) {
     }
 
     if (event.type === 'customer.subscription.updated') {
-      // todo
+      const subscription: Stripe.Subscription = event.data.object;
+      const planExpires = subscription.cancel_at
+        ? new Date(subscription.cancel_at * 1000)
+        : null;
+
+      console.log({
+        subscription,
+        subscription_cancel_at: subscription.cancel_at,
+        planExpires,
+      });
+
+      // Update the plan_expires field in the stripe_customers table
+      await db
+        .update(stripe_customers)
+        .set({ plan_expires: planExpires })
+        .where(eq(stripe_customers.subscription_id, subscription.id));
     }
 
     if (event.type === 'customer.subscription.deleted') {
-      // todo
+      const subscription = event.data.object;
+      console.log(subscription);
+
+      await db
+        .update(stripe_customers)
+        .set({ plan_active: false, subscription_id: null })
+        .where(eq(stripe_customers.subscription_id, subscription.id));
     }
 
     return NextResponse.json({ message: 'success' });

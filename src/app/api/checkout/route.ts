@@ -1,8 +1,5 @@
 import { stripe } from '@/common/stripe';
-import { getStripeCustomer } from '@/common/stripeCustomerUtils.server';
-import { db } from '@/database';
-import { stripe_customers } from '@/database/schema/app.schema';
-import { eq } from 'drizzle-orm';
+import { getStripeCustomer } from '@/common/stripe-customer-utils.server';
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {

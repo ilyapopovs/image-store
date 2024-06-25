@@ -1,10 +1,9 @@
 import { auth } from '@/common/_/auth/next-auth';
 import { Card, CardContent, CardHeader, CardTitle } from '@/common/_/ui/card';
-import { db } from '@/database';
-import { stripe_customers } from '@/database/schema/app.schema';
-import { eq } from 'drizzle-orm';
+import { getStripeCustomer } from '@/common/stripe-customer-utils.server';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import PortalButton from './_/portal-button';
 
 export default async function Profile() {
   const session = await auth();
@@ -13,7 +12,7 @@ export default async function Profile() {
     return redirect('/');
   }
 
-  const stripeCustomer = await getStripeCustomerData(session.user?.id!);
+  const stripeCustomer = await getStripeCustomer(session.user?.id!);
   console.log('stripeCustomer', stripeCustomer);
 
   return (
@@ -34,8 +33,13 @@ export default async function Profile() {
           </CardHeader>
           <CardContent>
             {stripeCustomer ? (
-              <div className="whitespace-pre-wrap">
-                {JSON.stringify(stripeCustomer, undefined, 2)}
+              <div className="space-y-6">
+                <div className="whitespace-pre-wrap">
+                  {JSON.stringify(stripeCustomer, undefined, 2)}
+                </div>
+                <div className="flex justify-end">
+                  <PortalButton />
+                </div>
               </div>
             ) : (
               <div>
@@ -54,17 +58,4 @@ export default async function Profile() {
       </div>
     </div>
   );
-}
-
-async function getStripeCustomerData(userId: string) {
-  const data = await db
-    .select()
-    .from(stripe_customers)
-    .where(eq(stripe_customers.user_id, userId));
-
-  if (data.length < 1) {
-    return undefined;
-  }
-
-  return data[0];
 }

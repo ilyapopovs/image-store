@@ -1,6 +1,6 @@
 import { SignIn } from '@/common/_/auth/buttons';
 import { auth } from '@/common/_/auth/next-auth';
-import { getStripeCustomer } from '@/common/stripeCustomerUtils.server';
+import { getStripeCustomer } from '@/common/stripe-customer-utils.server';
 import { type StripeCustomer } from '@/database/schema/app.schema';
 import CheckoutButton from './_/checkout-button';
 
