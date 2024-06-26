@@ -10,7 +10,7 @@ export default async function Home() {
   if (!session?.user?.id || !session.user.email) {
     return (
       <div className="space-y-6 p-10">
-        <GuestView />;
+        <GuestView />
       </div>
     );
   }

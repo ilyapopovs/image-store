@@ -19,7 +19,10 @@ export function Header() {
 
   return (
     <HeaderLine>
-      <Link href="/">Payments</Link>
+      <div className="space-x-8">
+        <Link href="/">Payments</Link>
+        <Link href="/photos">Photos</Link>
+      </div>
       <div className="space-x-4">
         <Link href="/profile">{session.data?.user?.name}</Link>
         <SignOut />
