@@ -33,8 +33,10 @@ export function Header() {
 
 function HeaderLine({ children }: { children: ReactNode }) {
   return (
-    <header className="flex items-center justify-between gap-4 border-y p-4 pl-8">
-      {children}
+    <header className="border-b p-4 pl-8">
+      <div className="container flex items-center justify-between gap-4">
+        {children}
+      </div>
     </header>
   );
 }

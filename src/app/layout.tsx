@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={cn(inter.className, 'dark bg-background')}>
         <SessionProvider>
           <Header />
-          <main>{children}</main>
+          <main className="container">{children}</main>
           <Toaster />
         </SessionProvider>
       </body>
