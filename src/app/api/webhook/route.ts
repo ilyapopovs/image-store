@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
 
       await db
         .update(stripe_customers)
-        .set({ plan_active: false, subscription_id: null })
+        .set({ plan_active: false, subscription_id: null, total_downloads: 0 })
         .where(eq(stripe_customers.subscription_id, subscription.id));
     }
 

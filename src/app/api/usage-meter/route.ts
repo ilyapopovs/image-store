@@ -1,4 +1,5 @@
 import { auth } from '@/common/_/auth/next-auth';
+import { stripe } from '@/common/stripe';
 import { getStripeCustomer } from '@/common/stripe-customer-utils.server';
 import { db } from '@/database';
 import {
@@ -40,7 +41,15 @@ export async function POST(request: Request) {
       .where(eq(stripe_customers.user_id, stripeCustomer.user_id));
 
     // update Stripe's downloads counter (meter)
-    // todo
+
+    await stripe.billing.meterEvents.create({
+      event_name: process.env.STRIPE_METER_EVENT_NAME!,
+      payload: {
+        value: '1',
+        stripe_customer_id: stripeCustomer.stripe_customer_id,
+      },
+      // identifier: 'identifier_123', // falling back to identifier provided by Stripe
+    });
 
     return NextResponse.json(
       {
