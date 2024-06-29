@@ -1,5 +1,6 @@
 import { Toaster } from '@/common/_/ui/toaster';
 import { cn } from '@/common/_/ui/utils';
+import { Provider as AtomStoreProvider } from 'jotai';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../globals.css';
@@ -21,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className, 'dark bg-background')}>
-        <SessionProvider>
-          <Header />
-          <main className="container">{children}</main>
-          <Toaster />
-        </SessionProvider>
+        <AtomStoreProvider>
+          <SessionProvider>
+            <Header />
+            <main className="container">{children}</main>
+            <Toaster />
+          </SessionProvider>
+        </AtomStoreProvider>
       </body>
     </html>
   );
