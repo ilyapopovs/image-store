@@ -2,7 +2,7 @@ import { SignIn } from '@/common/_/auth/buttons';
 import { auth } from '@/common/_/auth/next-auth';
 import { getStripeCustomer } from '@/common/stripe-customer-utils.server';
 import { type StripeCustomer } from '@/database/schema/app.schema';
-import CheckoutButton from './_/checkout-button';
+import { EmbeddedCheckoutButton } from './_/embedded-checkout-button';
 
 export default async function Home() {
   const session = await auth();
@@ -62,7 +62,8 @@ function BuyPlanView({ userId, email }: { userId: string; email: string }) {
     <div className="space-y-4 text-center">
       <h1>Signup for a Plan</h1>
       <p>Clicking this button creates a new Stripe Checkout session</p>
-      <CheckoutButton userId={userId} email={email} />
+      {/* <CheckoutButton userId={userId} email={email} /> */}
+      <EmbeddedCheckoutButton />
     </div>
   );
 }
