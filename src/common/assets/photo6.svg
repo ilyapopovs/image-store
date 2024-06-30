@@ -1,0 +1,21 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 248.58085426371576 248.58085426371565" width="745.7425627911473" height="745.742562791147">
+  <!-- svg-source:excalidraw -->
+  
+  <defs>
+    <style class="style-fonts">
+      @font-face {
+        font-family: "Virgil";
+        src: url("https://excalidraw.com/Virgil.woff2");
+      }
+      @font-face {
+        font-family: "Cascadia";
+        src: url("https://excalidraw.com/Cascadia.woff2");
+      }
+      @font-face {
+        font-family: "Assistant";
+        src: url("https://excalidraw.com/Assistant-Regular.woff2");
+      }
+    </style>
+    
+  </defs>
+  <rect x="0" y="0" width="248.58085426371576" height="248.58085426371565" fill="#ffffff"></rect><g stroke-linecap="round" transform="translate(10 10) rotate(0 114.29042713185788 114.29042713185783)"><path d="M32 0 C88.9 3.36, 153.08 2.29, 196.58 0 M32 0 C73.68 -0.66, 110.5 -1.03, 196.58 0 M196.58 0 C216.28 -0.24, 230.08 11.37, 228.58 32 M196.58 0 C220.06 -0.9, 228.16 6.9, 228.58 32 M228.58 32 C234.08 80.43, 233.9 128.53, 228.58 196.58 M228.58 32 C230.34 88.81, 229.85 141.02, 228.58 196.58 M228.58 196.58 C226.81 214.9, 215.91 227.62, 196.58 228.58 M228.58 196.58 C229.84 219.94, 220.85 225.4, 196.58 228.58 M196.58 228.58 C150.44 227.33, 106.62 227.95, 32 228.58 M196.58 228.58 C139.1 227.9, 85.92 225.3, 32 228.58 M32 228.58 C10.43 229.97, -3.34 221.71, 0 196.58 M32 228.58 C7.53 228.79, -1.77 215.97, 0 196.58 M0 196.58 C-5.58 134.37, -3.05 69.84, 0 32 M0 196.58 C1.13 142.46, -0.94 87.84, 0 32 M0 32 C0.85 10.34, 8.13 -2.93, 32 0 M0 32 C-2.93 9.52, 8.96 -2.46, 32 0" stroke="#1e1e1e" stroke-width="1" fill="none"></path></g><g transform="translate(52.86643878957261 101.79042713185783) rotate(0 71.42398834228516 22.5)"><text x="71.42398834228516" y="31.536" font-family="Virgil, Segoe UI Emoji" font-size="36px" fill="#1e1e1e" text-anchor="middle" style="white-space: pre;" direction="ltr" dominant-baseline="alphabetic">Photo 6</text></g></svg>
